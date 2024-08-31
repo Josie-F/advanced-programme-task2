@@ -1,8 +1,10 @@
 #include <iostream>
+#include "Server.h"
 
 using namespace std;
 
 int main() {
-    cout << "Setup for task 2!" << endl;
+    Server tcpConnect = Server();
+    tcpConnect.RunSocket();
     return 0;
 }
