@@ -17,8 +17,9 @@ public:
         int acceptSocket;
         sockaddr_in service;
         service.sin_family = AF_INET;
-        inet_pton(AF_INET, ("127.0.0.1"), &service.sin_addr.s_addr);
         int port = 3001;
+        service.sin_port = htons(port);
+        inet_pton(AF_INET, ("127.0.0.1"), &service.sin_addr.s_addr);
 
         serverSocket =
             -1;  // invalid socket from socket() will return negative i.e -1;
@@ -27,30 +28,28 @@ public:
             cout << "socket() failed. Error number: " << errno << endl;
             return 0;
         } else {
-            cout << "socket() is valid!" << endl;
+            cout << "socket() worked!" << endl;
         }
 
         if (bind(serverSocket, (sockaddr*)&service, sizeof(service)) == -1) { // bind step
-            cout << "bind() failed. Error: " << errno << endl;
+            cout << "bind() failed. Error number: " << errno << endl;
             close(serverSocket);
             return 0;
         } else {
             cout << "bind() is valid!" << endl;
         }
         if (listen(serverSocket, 1) == -1) {
-            cout << "listen(): Error listening on socket " << errno << endl;
+            cout << "listen() failed. Error listening on socket. Error number: " << errno << endl;
         } else {
-            cout << "listen() is valid, waiting for any incoming connections..." << endl;
+            cout << "listen() worked. Server is waiting for incoming connections..." << endl;
         }
 
-        // not yet tested. need client.
         acceptSocket = accept(serverSocket, NULL, NULL);
         if (acceptSocket == -1) {
-            cout << "accept() has failed: " << errno << endl;
+            cout << "accept() failed. Error number: " << errno << endl;
             return -1;
         }
         cout << "Accepted incoming connection" << endl;
-        system("pause");
         return 0;
     }
 };
