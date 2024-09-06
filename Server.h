@@ -6,9 +6,8 @@
 using namespace std;
 class Server : public Comms {
 public:
-    Server() {
-        socketInstanceName = "Server";
-        fromSocketName = "Client";
-    };
-    int RunSocket();
+    Server();
+    ~Server(){};
+    int Configure();
+    int Accept();
 };

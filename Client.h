@@ -6,9 +6,7 @@
 using namespace std;
 struct Client : public Comms {
 public:
-    Client() {
-        socketInstanceName = "Client";
-        fromSocketName = "Server";
-    };
-    int RunSocket();
+    Client();
+    ~Client(){};
+    int Connect();
 };

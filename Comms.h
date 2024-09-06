@@ -1,14 +1,24 @@
 #include <netdb.h>
+
+#include "time.h"
+
 #pragma once
-struct Comms {
-public:
+class Comms {
+private:
+    int port;
+    tm* currentTime;
+
+protected:  // only available to child classes
     int mainSocket;
     int acceptSocket;
     const char* fromSocketName;
     const char* socketInstanceName;
     sockaddr_in service;
+
+public:
     Comms() {};
-    virtual int RunSocket();
+    int SetupSocket();
     int ReceiveMessage(const char* fromSocketName, int fromSocket);
     int SendMessage(const char* socketInstanceName, int toSocket);
+    void SetCurrentTime();
 };

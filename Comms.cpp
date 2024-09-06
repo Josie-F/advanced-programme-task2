@@ -7,12 +7,12 @@
 #include <iostream>
 using namespace std;
 
-int Comms::RunSocket() {
+int Comms::SetupSocket() {
     // no init or cleanup functions needed for MAC therefore not
     // implemented.
+    port = 3001;
     service.sin_family = AF_INET;
     inet_pton(AF_INET, ("127.0.0.1"), &service.sin_addr.s_addr);
-    int port = 3001;
     service.sin_port = htons(port);
 
     mainSocket =
@@ -28,41 +28,42 @@ int Comms::RunSocket() {
 }
 
 int Comms::SendMessage(const char* socketName, int toSocket) {
-    time_t rawtime;
-    tm* utcTime;
-    time(&rawtime);
-    utcTime = gmtime(&rawtime);
     char message[200];
-    cout << "Enter your message" << endl;
+    cout << "Enter your message below" << endl;
     cin.getline(message, 200);
     int byteCount = send(toSocket, message, 200, 0);
     if (byteCount == -1) {
         cout << socketName << " error when sending message:" << errno << endl;
         return -1;
     } else {
-        cout << "Message sent at: " << utcTime->tm_hour + 1 << ":"
-             << utcTime->tm_min << ":" << utcTime->tm_sec
+        SetCurrentTime();
+        cout << "Message sent at: " << currentTime->tm_hour + 1 << ":"
+             << currentTime->tm_min << ":" << currentTime->tm_sec
              << endl;  // +1 BST (British Summer Time)
     }
     // return 0;
 }
 
 int Comms::ReceiveMessage(const char* socketName, int fromSocket) {
-    time_t rawtime;
-    tm* utcTime;
-    time(&rawtime);
-    utcTime = gmtime(&rawtime);
-    char receiveMessage[200] = "";
-    int byteCount = recv(fromSocket, receiveMessage, 200, 0);
+    char receivedMessage[200];
+    int byteCount = recv(fromSocket, receivedMessage, 200, 0);
     if (byteCount < 0) {
         cout << socketName << " error when receiving message: " << errno
              << endl;
         return -1;
     } else {
-        cout << utcTime->tm_hour + 1 << ":" << utcTime->tm_min << ":"
-             << utcTime->tm_sec << " " << socketName << " " << receiveMessage
+        SetCurrentTime();
+        cout << currentTime->tm_hour + 1 << ":" << currentTime->tm_min << ":"
+             << currentTime->tm_sec << " " << socketName << ": " << receivedMessage
              << endl;
         ;
     }
     // return 0;
+}
+
+void Comms::SetCurrentTime(){
+    time_t rawtime;
+    tm* utcTime;
+    time(&rawtime);
+    currentTime = gmtime(&rawtime);
 }

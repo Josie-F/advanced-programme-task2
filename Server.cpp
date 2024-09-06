@@ -7,12 +7,13 @@
 #include <iostream>
 using namespace std;
 
-int Server::RunSocket() {
-    // call parent function 
-    Comms::RunSocket();
+Server::Server() {
+    socketInstanceName = "Server";
+    fromSocketName = "Client";
+}
 
-    if (bind(mainSocket, (sockaddr*)&service, sizeof(service)) ==
-        -1) {  // bind step
+int Server::Configure() {
+    if (bind(mainSocket, (sockaddr*)&service, sizeof(service)) == -1) {
         cout << "bind() failed. Error number: " << errno << endl;
         close(mainSocket);
         return 0;
@@ -27,13 +28,16 @@ int Server::RunSocket() {
                 "connections..."
              << endl;
     }
+    return 0;
+}
 
+int Server::Accept() {
     acceptSocket = accept(mainSocket, NULL, NULL);
     if (acceptSocket == -1) {
         cout << "accept() failed. Error number: " << errno << endl;
         return -1;
     }
-    cout << "Accepted incoming connection" << endl;
+    cout << "A client has connected!" << endl;
     while (1) {
         ReceiveMessage(fromSocketName, acceptSocket);
         SendMessage(socketInstanceName, acceptSocket);
