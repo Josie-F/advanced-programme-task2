@@ -39,8 +39,12 @@ int Server::Accept() {
     }
     cout << "A client has connected!" << endl;
     while (1) {
-        ReceiveMessage(fromSocketName, acceptSocket);
+        int receivedResponse = ReceiveMessage(fromSocketName, acceptSocket);
+        if (receivedResponse == 1) {
+            break;
+        }
         SendMessage(socketInstanceName, acceptSocket);
     }
+    close(mainSocket);
     return 0;
 }

@@ -41,6 +41,13 @@ int Comms::SendMessage(const char* socketName, int toSocket) {
              << currentTime->tm_min << ":" << currentTime->tm_sec
              << endl;  // +1 BST (British Summer Time)
     }
+    if ((strcmp(socketInstanceName, "Client") == 0)) {
+        if (strcmp(message, "Quit") ==
+            0) {  // if the client typed quit, return and close the connection.
+            cout << "Closing client" << endl;
+            return 1;
+        }
+    }
     // return 0;
 }
 
@@ -52,16 +59,24 @@ int Comms::ReceiveMessage(const char* socketName, int fromSocket) {
              << endl;
         return -1;
     } else {
+        if ((strcmp(socketInstanceName, "Server") == 0)) {
+            if (strcmp(receivedMessage, "Quit") ==
+                0) {  // if the client typed quit, return and close the server
+                      // connection.
+                cout << "Closing server" << endl;
+                return 1;
+            }
+        }
         SetCurrentTime();
         cout << currentTime->tm_hour + 1 << ":" << currentTime->tm_min << ":"
-             << currentTime->tm_sec << " " << socketName << ": " << receivedMessage
-             << endl;
+             << currentTime->tm_sec << " " << socketName << ": "
+             << receivedMessage << endl;
         ;
     }
     // return 0;
 }
 
-void Comms::SetCurrentTime(){
+void Comms::SetCurrentTime() {
     time_t rawtime;
     tm* utcTime;
     time(&rawtime);

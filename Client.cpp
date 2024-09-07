@@ -23,8 +23,12 @@ int Client::Connect() {
         cout << socketName << " is ready to send and receive data..." << endl;
     }
     while (1) {
-        SendMessage(socketInstanceName, mainSocket);
+        int sendResponse = SendMessage(socketInstanceName, mainSocket);
+        if (sendResponse == 1) {
+            break;
+        }
         ReceiveMessage(fromSocketName, mainSocket);
     }
+    close(mainSocket);
     return 0;
 }
