@@ -1,6 +1,9 @@
 #include <netdb.h>
 
 #include "time.h"
+#include "SocketException.h"
+#include "SendException.h"
+#include "ReceiveException.h"
 
 #pragma once
 class Comms {

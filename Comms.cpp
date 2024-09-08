@@ -19,7 +19,8 @@ int Comms::SetupSocket() {
         -1;  // invalid socket from socket() will return negative i.e -1;
     mainSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (mainSocket < 0) {
-        cout << "Error at socket(). Error number: " << errno << endl;
+        SocketException socketError(errno);
+        throw socketError;
         return 0;
     } else {
         cout << "socket() worked" << endl;
@@ -33,7 +34,8 @@ int Comms::SendMessage(const char* socketName, int toSocket) {
     cin.getline(message, 200);
     int byteCount = send(toSocket, message, 200, 0);
     if (byteCount == -1) {
-        cout << socketName << " error when sending message:" << errno << endl;
+        SendException sendError(errno);
+        throw sendError;
         return -1;
     } else {
         SetCurrentTime();
@@ -55,9 +57,8 @@ int Comms::ReceiveMessage(const char* socketName, int fromSocket) {
     char receivedMessage[200];
     int byteCount = recv(fromSocket, receivedMessage, 200, 0);
     if (byteCount < 0) {
-        cout << socketName << " error when receiving message: " << errno
-             << endl;
-        return -1;
+        ReceiveException receiveError(errno);
+        throw receiveError;
     } else {
         if ((strcmp(socketInstanceName, "Server") == 0)) {
             if (strcmp(receivedMessage, "Quit") ==

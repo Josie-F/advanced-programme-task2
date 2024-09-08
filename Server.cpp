@@ -14,15 +14,14 @@ Server::Server() {
 
 int Server::Configure() {
     if (bind(mainSocket, (sockaddr*)&service, sizeof(service)) == -1) {
-        cout << "bind() failed. Error number: " << errno << endl;
-        close(mainSocket);
-        return 0;
+        BindException bindError(errno);
+        throw bindError;
     } else {
         cout << "bind() is valid!" << endl;
     }
     if (listen(mainSocket, 1) == -1) {
-        cout << "listen() failed. Error listening on socket. Error number: "
-             << errno << endl;
+        ListenException listenError(errno);
+        throw listenError;
     } else {
         cout << "listen() worked. Server is waiting for incoming "
                 "connections..."
@@ -34,8 +33,8 @@ int Server::Configure() {
 int Server::Accept() {
     acceptSocket = accept(mainSocket, NULL, NULL);
     if (acceptSocket == -1) {
-        cout << "accept() failed. Error number: " << errno << endl;
-        return -1;
+        AcceptException acceptError(errno);
+        throw acceptError;
     }
     cout << "A client has connected!" << endl;
     while (1) {

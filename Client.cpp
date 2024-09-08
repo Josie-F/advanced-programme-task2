@@ -15,9 +15,8 @@ int Client::Connect() {
     // call parent runsocket
     const char* socketName = "Client";
     if (connect(mainSocket, (sockaddr*)&service, sizeof(service)) == -1) {
-        cout << "connect() - Failed to connect. Error number: " << errno
-             << endl;
-        return 0;
+        ConnectException connectError(errno);
+        throw connectError;
     } else {
         cout << "connect() worked." << endl;
         cout << socketName << " is ready to send and receive data..." << endl;
