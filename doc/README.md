@@ -7,13 +7,13 @@ This programme is a Chat Application between a Server and a Client socket using 
 There will be a Server and client executable (available within /clientProject and /serverProject)
 
 Run the server socket:
-1. cd into `/serverProject`
+1. cd into `/build/serverProject`
 2. run `./server`
 The server socket will start and wait for incoming connections.
 
 Run the client socket:
 
-3. now cd into `/clientProject`
+3. now cd into `/build/clientProject`
 4. run `./client`
 
 The client will connect to the server socket.
@@ -26,14 +26,14 @@ Depending on whether you want to build the server or the client, you'll need to 
 
 ### For a client build:
 Delete the current client executable
-1. cd into `/clientProject`
+1. cd into `/build/clientProject`
 2. run `cmake .. -G "Unix Makefiles" -DCMAKE_CLIENT_BUILD=ON`
 3. run `make`
 4. run `./client`
 
 ### For a server build:
 Delete the current server executable
-1. cd into `/serverProject`
+1. cd into `/build/serverProject`
 2. run `cmake .. -G "Unix Makefiles" -DCMAKE_SERVER_BUILD=ON`
 3. run `make`
 4. run `./server`
