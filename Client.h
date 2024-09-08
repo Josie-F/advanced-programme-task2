@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "Comms.h"
-#include "ConnectException.h"
+#include "Exceptions.h"
 
 #pragma once
 using namespace std;

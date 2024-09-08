@@ -1,9 +1,7 @@
 #include <iostream>
 
 #include "Comms.h"
-#include "BindException.h"
-#include "ListenException.h"
-#include "AcceptException.h"
+#include "Exceptions.h"
 
 #pragma once
 using namespace std;
