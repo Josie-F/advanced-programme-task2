@@ -1,20 +1,31 @@
 #include <iostream>
+// if statement added to accomodate for exceptions that would be undefined if
+// either client or server isnt specified. using 'if !defined()' instead of ifndef to allow the || operator. 
+#if !defined(CLIENTBUILD) || !defined(SERVERBUILD)
+#include "Exceptions.h"
+#endif
 
-#include "Client.h"
+#ifdef SERVERBUILD
 #include "Server.h"
-
+#endif
+#ifdef CLIENTBUILD
+#include "Client.h"
+#endif
 using namespace std;
 
 int main() {
     try {
-        // Server serverSocket = Server();
-        // serverSocket.SetupSocket();
-        // serverSocket.Configure();
-        // serverSocket.Accept();
-
+#ifdef SERVERBUILD
+        Server serverSocket = Server();
+        serverSocket.SetupSocket();
+        serverSocket.Configure();
+        serverSocket.Accept();
+#endif
+#ifdef CLIENTBUILD
         Client clientSocket = Client();
         clientSocket.SetupSocket();
         clientSocket.Connect();
+#endif
     } catch (
         SocketException& e) {  // catch as reference so as to not create copy
         cout << e.what() << " Error number: " << e.errNo

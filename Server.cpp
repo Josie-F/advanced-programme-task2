@@ -1,3 +1,4 @@
+#ifdef SERVERBUILD
 #include "Server.h"
 
 #include <arpa/inet.h>  // for inet_pton()
@@ -47,3 +48,4 @@ int Server::Accept() {
     close(mainSocket);
     return 0;
 }
+#endif

@@ -1,3 +1,4 @@
+#ifdef CLIENTBUILD
 #include <iostream>
 
 #include "Comms.h"
@@ -11,3 +12,4 @@ public:
     ~Client() {};
     int Connect();
 };
+#endif

@@ -1,3 +1,4 @@
+#ifdef SERVERBUILD
 #include <iostream>
 
 #include "Comms.h"
@@ -12,3 +13,4 @@ public:
     int Configure();
     int Accept();
 };
+#endif

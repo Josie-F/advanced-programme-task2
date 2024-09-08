@@ -1,3 +1,4 @@
+#ifdef CLIENTBUILD
 #include "Client.h"
 
 #include <arpa/inet.h>  // for inet_pton()
@@ -31,3 +32,4 @@ int Client::Connect() {
     close(mainSocket);
     return 0;
 }
+#endif
