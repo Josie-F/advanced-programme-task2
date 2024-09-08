@@ -1,8 +1,8 @@
 #ifdef SERVERBUILD
 #include <iostream>
 
-#include "Comms.h"
-#include "Exceptions.h"
+#include "../Comms/Comms.h"
+#include "../Exceptions.h"
 
 #pragma once
 using namespace std;

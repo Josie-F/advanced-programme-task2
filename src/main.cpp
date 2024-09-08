@@ -5,11 +5,11 @@
 #include "Exceptions.h"
 #endif
 
-#ifdef SERVERBUILD
-#include "Server.h"
-#endif
+// #ifdef SERVERBUILD
+#include "./Server/Server.h"
+// #endif
 #ifdef CLIENTBUILD
-#include "Client.h"
+#include "./Client/Client.h"
 #endif
 using namespace std;
 

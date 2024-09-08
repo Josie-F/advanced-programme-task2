@@ -1,2 +1,3 @@
-clientProject/*
-serverProject/*
+build/clientProject/*
+build/serverProject/*
+.vscode/*

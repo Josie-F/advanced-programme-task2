@@ -30,17 +30,17 @@ endif()
 
 # creates separate variables which store the needed files for each type of build.  
 file(GLOB SHAREDSOURCES
-    Comms.cpp
-    main.cpp
+    ../src/Comms/Comms.cpp
+    ../src/main.cpp
 )
 
 file(GLOB CLIENTSOURCES
-    Client.cpp
+    ../src/Client/Client.cpp
     ${SHAREDSOURCES}
 )
 
 file(GLOB SERVERSOURCES
-    Server.cpp
+    ../src/Server/Server.cpp
     ${SHAREDSOURCES}
 )
 
