@@ -2,7 +2,7 @@
 using namespace std;
 #pragma once
 // Header file that groups the individual classes of exceptions which can be thrown
-// throughout the application.
+// throughout the application. I've kept it in a header file as it is minimum implementation/logic.
 
 class AcceptException : public exception {
 public:
