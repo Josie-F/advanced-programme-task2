@@ -16,14 +16,13 @@ Client::Client() {
 
 // Function to connect the client socket to server socket and send and receive messages.
 int Client::Connect() {
-    const char* socketName = "Client";
     // connect the client socket to the server socket's address.
     if (connect(mainSocket, (sockaddr*)&service, sizeof(service)) == -1) {
         ConnectException connectError(errno);
         throw connectError;
     } else {
         cout << "Client connected to server." << endl;
-        cout << socketName << " is ready to send and receive data from the server" << endl;
+        cout << socketInstanceName << " is ready to send and receive data from the server" << endl;
     }
     while (1) {
         int sendResponse = SendMessage(socketInstanceName, mainSocket);

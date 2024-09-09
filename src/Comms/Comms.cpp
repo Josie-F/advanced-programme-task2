@@ -24,7 +24,6 @@ int Comms::SetupSocket() {
     if (mainSocket < 0) {
         SocketException socketError(errno);
         throw socketError;
-        return 0;
     } else {
         cout << "Created a socket" << endl;
     }
@@ -41,7 +40,6 @@ int Comms::SendMessage(const char* socketName, int toSocket) {
     if (byteCount == -1) {
         SendException sendError(errno);
         throw sendError;
-        return -1;
     } else {
         // set and use current time for UI purposes. 
         SetCurrentTime();

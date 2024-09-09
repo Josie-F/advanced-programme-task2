@@ -5,9 +5,9 @@
 #include "Exceptions.h"
 #endif
 
-// #ifdef SERVERBUILD
+#ifdef SERVERBUILD
 #include "./Server/Server.h"
-// #endif
+#endif
 #ifdef CLIENTBUILD
 #include "./Client/Client.h"
 #endif
@@ -37,6 +37,12 @@ int main() {
         cout << e.what() << " Error number: " << e.errNo << endl;
     } catch (BindException& e) {
         cout << e.what() << " Error number: " << e.errNo << endl;
+    } catch (ReceiveException& e) {
+       cout << e.what() << " Error number: " << e.errNo << endl; 
+    } catch (ListenException& e) {
+        cout << e.what() << " Error number: " << e.errNo << endl; 
+     } catch (AcceptException& e) {
+        cout << e.what() << " Error number: " << e.errNo << endl; 
     }
     return 0;
 }
