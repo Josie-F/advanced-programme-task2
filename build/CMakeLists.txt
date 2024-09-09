@@ -14,8 +14,8 @@ if(NOT WIN32)
 endif()
 
 # Adds an optionable flag. Can be used for the command line to conditionally build server or client files. 
-option(CMAKE_SERVER_BUILD "Only Build and Compile Client" OFF)
-option(CMAKE_CLIENT_BUILD "Only Build and Compile Server" OFF) 
+option(CMAKE_SERVER_BUILD "Only Build and Compile Server" OFF)
+option(CMAKE_CLIENT_BUILD "Only Build and Compile Client" OFF) 
 
 # if CMAKE_SERVER_BUILD server is set to ON within the command line 
 if(CMAKE_SERVER_BUILD)
