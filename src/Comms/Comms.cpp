@@ -35,21 +35,24 @@ int Comms::SendMessage(const char* socketName, int toSocket) {
     char message[200];
     cout << "Enter your message below" << endl;
     cin.getline(message, 200);
-    // send a char array to the specified socket, with the message the user typed into the command line. 
+    // send a char array to the specified socket, with the message the user
+    // typed into the command line.
     int byteCount = send(toSocket, message, 200, 0);
     if (byteCount == -1) {
         SendException sendError(errno);
         throw sendError;
     } else {
-        // set and use current time for UI purposes. 
+        // set and use current time for UI purposes.
         SetCurrentTime();
         cout << "Message sent at: " << currentTime->tm_hour + 1 << ":"
              << currentTime->tm_min << ":" << currentTime->tm_sec
              << endl;  // +1 BST (British Summer Time)
     }
     if ((strcmp(socketInstanceName, "Client") == 0)) {
-        if (strcmp(message, "Quit") ==
-            0) {  // if the client typed quit, return and close the connection.
+        if ((strcmp(message, "Quit") == 0) ||
+            (strcmp(message, "QUIT") ==
+             0)) {  // if the client typed quit, return and close the
+                    // connection.
             cout << "Closing client" << endl;
             return 1;
         }
@@ -67,14 +70,15 @@ int Comms::ReceiveMessage(const char* socketName, int fromSocket) {
         throw receiveError;
     } else {
         if ((strcmp(socketInstanceName, "Server") == 0)) {
-            if (strcmp(receivedMessage, "Quit") ==
-                0) {  // if the client typed quit, return and close the server
-                      // connection.
+            if ((strcmp(receivedMessage, "Quit") == 0) ||
+                (strcmp(receivedMessage, "QUIT") ==
+                 0)) {  // if the client typed quit, return and close the server
+                        // connection.
                 cout << "Client disconnected. Closing server" << endl;
                 return 1;
             }
         }
-        // set and use current time for UI purposes. 
+        // set and use current time for UI purposes.
         SetCurrentTime();
         cout << currentTime->tm_hour + 1 << ":" << currentTime->tm_min << ":"
              << currentTime->tm_sec << " " << socketName << ": "
